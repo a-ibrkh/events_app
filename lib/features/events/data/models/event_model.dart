@@ -1,41 +1,28 @@
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
+import '../../../../core/utils/app_keys.dart';
+import '../../domain/entities/event_entity.dart';
 
-import 'package:events_app/core/utils/app_keys.dart';
-
-class EventModel extends Equatable {
-  final String eventId;
-  final String eventName;
-  final String eventDescription;
-  final int eventColorHex;
-  final String eventLocation;
-  final DateTime eventDate;
-  final String timeFrom;
-  final String timeTo;
-
+class EventModel extends EventEntity {
   const EventModel({
-    required this.eventId,
-    required this.eventName,
-    required this.eventDescription,
-    required this.eventColorHex,
-    required this.eventLocation,
-    required this.eventDate,
-    required this.timeFrom,
-    required this.timeTo,
-  });
-
-  @override
-  List<Object?> get props => [
-        eventColorHex,
-        eventDescription,
-        eventLocation,
-        eventName,
-        timeFrom,
-        timeTo,
-        eventId,
-        eventDate,
-      ];
+    required String eventId,
+    required String eventName,
+    required String eventDescription,
+    required int eventColorHex,
+    required String eventLocation,
+    required DateTime eventDate,
+    required String timeFrom,
+    required String timeTo,
+  }) : super(
+          eventId: eventId,
+          eventColorHex: eventColorHex,
+          eventDate: eventDate,
+          eventDescription: eventDescription,
+          eventLocation: eventLocation,
+          eventName: eventName,
+          timeFrom: timeFrom,
+          timeTo: timeTo,
+        );
 
   Map<String, dynamic> toMap() {
     return {

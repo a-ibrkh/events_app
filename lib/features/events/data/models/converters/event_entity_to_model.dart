@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:events_app/features/events/data/models/event_model.dart';
-import 'package:events_app/features/events/domain/entities/event_entity.dart';
+import '../event_model.dart';
+import '../../../domain/entities/event_entity.dart';
 
-//@Injectable(as: Converter<EventModel, EventEntity>)
-class EventConverterToEntity extends Converter<EventModel, EventEntity> {
+//injectable
+class EventConverterToModel extends Converter<EventEntity, EventModel> {
   @override
-  EventEntity convert(EventModel input) {
-    return EventEntity(
+  EventModel convert(EventEntity input) {
+    return EventModel(
         eventId: input.eventId,
         eventName: input.eventName,
         eventDescription: input.eventDescription,

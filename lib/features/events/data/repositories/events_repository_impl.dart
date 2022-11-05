@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:events_app/features/events/data/datasources/local_datasource.dart';
+import 'package:events_app/features/events/data/datasources/local_datasource_impl.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failure.dart';
@@ -11,13 +11,16 @@ import '../models/event_model.dart';
 
 //@Injectable(as: EventsRepository)
 class EventsRepositoryImpl implements EventsRepository {
-  final Converter<EventModel, EventEntity> _converter;
+  final Converter<EventModel, EventEntity> _converterToEntity;
+  final Converter<EventEntity, EventModel> _converterToModel;
   final EventsLocalDatasource eventsLocalDatasource;
-  EventsRepositoryImpl(this._converter, this.eventsLocalDatasource);
+  EventsRepositoryImpl(this._converterToEntity, this._converterToModel,
+      this.eventsLocalDatasource);
   @override
-  Future<Either<Failure, bool>> addEvent(EventModel event) async {
+  Future<Either<Failure, bool>> addEvent(EventEntity event) async {
     try {
-      final result = await eventsLocalDatasource.insertEvent(event);
+      final result = await eventsLocalDatasource
+          .insertEvent(_converterToModel.convert(event));
       return Right(result);
     } on CacheException {
       return Left(CacheFailure("Unable to insert"));
@@ -44,7 +47,8 @@ class EventsRepositoryImpl implements EventsRepository {
     try {
       List<EventModel> list = await eventsLocalDatasource.getEventsForOneDay(
           date.toIso8601String(), offset, limit);
-      var eventEntityList = list.map((e) => _converter.convert(e)).toList();
+      var eventEntityList =
+          list.map((e) => _converterToEntity.convert(e)).toList();
       return Right(eventEntityList);
     } on CacheException {
       return Left(CacheFailure("Unable to get events"));
@@ -54,9 +58,10 @@ class EventsRepositoryImpl implements EventsRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> updateEvent(EventModel event) async {
+  Future<Either<Failure, bool>> updateEvent(EventEntity event) async {
     try {
-      final result = await eventsLocalDatasource.updateEvent(event);
+      final result = await eventsLocalDatasource
+          .updateEvent(_converterToModel.convert(event));
       return Right(result);
     } on CacheException {
       return Left(CacheFailure("Unable to update event"));

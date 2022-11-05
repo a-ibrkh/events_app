@@ -3,8 +3,6 @@ import 'package:events_app/core/routing/app_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'features/events/data/models/event_model.dart';
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   //TODO: initialize service locator

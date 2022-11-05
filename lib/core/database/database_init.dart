@@ -1,5 +1,7 @@
-import 'package:sqflite/sqflite.dart';
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../utils/app_constants.dart';
 import '../utils/app_keys.dart';
