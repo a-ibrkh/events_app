@@ -25,7 +25,7 @@ class DatabaseInit {
 
   Future _createDB(Database db, int version) async {
     await db.execute(""" 
-    CREATE TABLE ${AppKeys.eventsTable}(
+    CREATE TABLE ${AppKeys.eventsTable} (
       ${AppKeys.eventId} ${AppConstants.sqlStringType},
       ${AppKeys.eventName} ${AppConstants.sqlStringType},
       ${AppKeys.eventDescription} ${AppConstants.sqlStringType},
@@ -33,7 +33,7 @@ class DatabaseInit {
       ${AppKeys.eventLocation} ${AppConstants.sqlStringType},
       ${AppKeys.eventDate} ${AppConstants.sqlStringType},
       ${AppKeys.timeFrom} ${AppConstants.sqlStringType},
-      ${AppKeys.timeTo} ${AppConstants.sqlStringType},
+      ${AppKeys.timeTo} ${AppConstants.sqlStringType}
     )
     """);
   }

@@ -22,17 +22,17 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
     required this.deleteEvent,
     required this.getEventsForOneDay,
   }) : super(EventsEmpty()) {
-    on<GetEvents>((event, emit) {
-      _getEvents(event, emit);
+    on<GetEvents>((event, emit) async {
+      await _getEvents(event, emit);
     });
-    on<AddEvent>((event, emit) {
-      _addEvent(event, emit);
+    on<AddEvent>((event, emit) async {
+      await _addEvent(event, emit);
     });
-    on<UpdateEvent>((event, emit) {
-      _updateEvent(event, emit);
+    on<UpdateEvent>((event, emit) async {
+      await _updateEvent(event, emit);
     });
-    on<DeleteEvent>((event, emit) {
-      _deleteEvent(event, emit);
+    on<DeleteEvent>((event, emit) async {
+      await _deleteEvent(event, emit);
     });
   }
   Future<void> _getEvents(GetEvents event, Emitter<EventsState> emit) async {
@@ -58,6 +58,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
         await addEvent.call(add.Params(event: event.event));
     failureOrAddedEvent
         .fold((failure) => emit(const Error("Could not add event")), (isAdded) {
+      print("is added $isAdded");
       emit(isAdded
           ? const Success("Successfully added")
           : const Error("Could not add event"));

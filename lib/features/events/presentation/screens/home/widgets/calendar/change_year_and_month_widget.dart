@@ -19,7 +19,7 @@ class YearAndMonthWidget extends StatelessWidget {
             elevation: 0,
             value: selectedDate.year,
             items: List.generate(
-              1000,
+              1001,
               (index) => DropdownMenuItem<int>(
                 value: 1950 + index,
                 child: Text(
@@ -56,6 +56,7 @@ class YearAndMonthWidget extends StatelessWidget {
         ),
         ChangeMonthButton(
           onTap: () {
+            if (selectedDate.month == 1 && selectedDate.year == 1950) return;
             BlocProvider.of<CalendarCubit>(context).changeDate(
               DateTime(
                 selectedDate.month == 1
@@ -72,6 +73,7 @@ class YearAndMonthWidget extends StatelessWidget {
         ),
         ChangeMonthButton(
           onTap: () {
+            if (selectedDate.month == 12 && selectedDate.year == 2950) return;
             BlocProvider.of<CalendarCubit>(context).changeDate(
               DateTime(
                 selectedDate.month == 12

@@ -18,7 +18,7 @@ class ChangeMonthButton extends StatelessWidget {
               width: 32.0,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.grey.withOpacity(0.3),
+                color: Colors.grey.withOpacity(0.2),
               ),
               child: Icon(
                 icon,

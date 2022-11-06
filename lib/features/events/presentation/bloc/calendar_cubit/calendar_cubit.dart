@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'calendar_state.dart';
 
+//injectable
 class CalendarCubit extends Cubit<CalendarState> {
   CalendarCubit() : super(CalendarInitial(selectedDate: DateTime.now()));
 

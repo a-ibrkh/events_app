@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../../core/utils/app_colors.dart';
 import '../../../../../../../core/utils/app_textstyles.dart';
 import '../../../../bloc/calendar_cubit/calendar_cubit.dart';
 
@@ -55,20 +57,22 @@ class CalendarWidget extends StatelessWidget {
                         child: Material(
                           color: Colors.white,
                           child: InkWell(
-                            onTap: () {
-                              if (isNextMonth || isPreviousMonth) return;
-                              BlocProvider.of<CalendarCubit>(context)
-                                  .changeDate(
-                                DateTime(year, month, int.parse(displayedDay)),
-                              );
-                            },
+                            onTap: isNextMonth || isPreviousMonth
+                                ? null
+                                : () {
+                                    BlocProvider.of<CalendarCubit>(context)
+                                        .changeDate(
+                                      DateTime(
+                                          year, month, int.parse(displayedDay)),
+                                    );
+                                  },
                             child: Ink(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: (int.parse(displayedDay) ==
                                             selectedDate.day) &&
                                         (!isPreviousMonth && !isNextMonth)
-                                    ? Colors.blue
+                                    ? AppColors.customBlue
                                     : Colors.white,
                               ),
                               height: MediaQuery.of(context).size.height / 18,

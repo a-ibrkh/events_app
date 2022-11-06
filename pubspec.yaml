@@ -45,6 +45,7 @@ dependencies:
   dartz: ^0.10.1
   #Local datasource manager
   sqflite: ^2.2.0+3
+  masked_text: ^1.1.2
 
 dev_dependencies:
   flutter_test:
