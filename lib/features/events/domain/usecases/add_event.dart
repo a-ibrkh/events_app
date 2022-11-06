@@ -6,10 +6,11 @@ import '../../../../core/usecases/usecase.dart';
 import '../entities/event_entity.dart';
 import '../repositories/events_repository.dart';
 
-class AddEvent implements UseCase<bool, Params> {
+//injectable
+class AddEventUsecase implements UseCase<bool, Params> {
   final EventsRepository _repository;
 
-  AddEvent(this._repository);
+  AddEventUsecase(this._repository);
 
   @override
   Future<Either<Failure, bool>> call(Params params) async {

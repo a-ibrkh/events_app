@@ -4,11 +4,11 @@ import 'package:equatable/equatable.dart';
 import '../../../../core/errors/failure.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../repositories/events_repository.dart';
-
-class DeleteEvent implements UseCase<bool, Params> {
+//injectable
+class DeleteEventUsecase implements UseCase<bool, Params> {
   final EventsRepository _repository;
 
-  DeleteEvent(this._repository);
+  DeleteEventUsecase(this._repository);
 
   @override
   Future<Either<Failure, bool>> call(Params params) async {

@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failure.dart';
-import '../../data/models/event_model.dart';
 import '../entities/event_entity.dart';
 
 abstract class EventsRepository {

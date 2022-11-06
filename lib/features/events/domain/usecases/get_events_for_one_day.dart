@@ -4,7 +4,7 @@ import 'package:events_app/core/errors/failure.dart';
 import 'package:events_app/core/usecases/usecase.dart';
 import 'package:events_app/features/events/domain/entities/event_entity.dart';
 import 'package:events_app/features/events/domain/repositories/events_repository.dart';
-
+//injectable
 class GetEventsForOneDay implements UseCase<List<EventEntity>, Params> {
   final EventsRepository _repository;
 
