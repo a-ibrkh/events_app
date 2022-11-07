@@ -60,10 +60,8 @@ class HomeScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            "Schedule",
-                            style: AppTextStyles.smallTitle,
-                          ),
+                          const Text("Schedule",
+                              style: AppTextStyles.smallTitle),
                           AddEventButton(selectedDate: selectedDate),
                         ],
                       ),

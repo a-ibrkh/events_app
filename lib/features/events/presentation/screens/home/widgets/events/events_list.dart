@@ -1,3 +1,4 @@
+import 'package:events_app/core/utils/app_colors.dart';
 import 'package:events_app/features/events/presentation/screens/single_event/single_event_bottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,18 @@ class EventsList extends StatelessWidget {
 
     return BlocConsumer<EventsBloc, EventsState>(
       listener: (context, state) {
+        if (state is Success) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.successMessage),
+            backgroundColor: AppColors.customBlue,
+          ));
+        }
+        if (state is Error) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.errorMessage),
+            backgroundColor: AppColors.customRed,
+          ));
+        }
         if (state is EventsGotten) {
           scrollController.addListener(() {
             if (scrollController.offset >=
@@ -55,7 +68,16 @@ class EventsList extends StatelessWidget {
                             child: SingleEventBottomsheetBuilder(
                                 event: state.events[index]),
                           );
-                        });
+                        }).then((_) {
+                      BlocProvider.of<EventsBloc>(context).add(
+                        GetEvents(
+                          true,
+                          DateTime(selectedDate.year, selectedDate.month,
+                              selectedDate.day),
+                          const [],
+                        ),
+                      );
+                    });
                   },
                 );
               },
