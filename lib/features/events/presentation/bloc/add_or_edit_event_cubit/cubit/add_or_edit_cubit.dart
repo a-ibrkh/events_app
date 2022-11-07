@@ -64,7 +64,6 @@ class AddOrEditCubit extends Cubit<AddOrEditState> {
       timeError = "Time is empty";
       canSubmit = false;
     } else if (state.eventTime.text.length == 13) {
-      
       String timeEntered = state.eventTime.text.replaceAll(" - ", "");
       timeEntered = timeEntered.replaceAll(":", "");
       String from = timeEntered.replaceRange(4, null, "");
@@ -81,10 +80,10 @@ class AddOrEditCubit extends Cubit<AddOrEditState> {
           toMinutes > 59) {
         timeError = "Incorrect time";
         canSubmit = false;
-      } else if (toHours < fromHours) {
+      } else if ((toHours < fromHours )||((toHours == fromHours) && (fromMinutes > toMinutes))) {
         timeError = "Ending time can not be earlier than starting time";
         canSubmit = false;
-      } else {
+      }  else {
         timeError = '';
       }
     }
