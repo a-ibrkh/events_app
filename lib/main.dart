@@ -31,7 +31,18 @@ class EventsApp extends StatelessWidget {
           create: (_) => di.sl<AddOrEditCubit>(),
         ),
         BlocProvider(
-          create: (_) => di.sl<EventsBloc>(),
+          create: (_) => di.sl<EventsBloc>()
+            ..add(
+              GetEvents(
+                true,
+                DateTime(
+                  DateTime.now().year,
+                  DateTime.now().month,
+                  DateTime.now().day,
+                ),
+                const [],
+              ),
+            ),
         ),
       ],
       child: MaterialApp(

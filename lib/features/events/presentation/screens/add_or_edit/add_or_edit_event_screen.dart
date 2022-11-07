@@ -203,7 +203,8 @@ class _AddOrEditEventScreenState extends State<AddOrEditEventScreen> {
                         onTap: () {
                           BlocProvider.of<AddOrEditCubit>(context)
                               .validateTextFields(state);
-                          if (state.canSubmit) {
+                          if (state.canSubmit &&
+                              widget.args.eventToEdit == null) {
                             BlocProvider.of<EventsBloc>(context).add(
                               AddEvent(
                                 EventEntity(
@@ -228,6 +229,31 @@ class _AddOrEditEventScreenState extends State<AddOrEditEventScreen> {
                               ),
                             );
                             Navigator.of(context).pop();
+                          } else if (widget.args.eventToEdit != null &&
+                              state.canSubmit) {
+                            BlocProvider.of<EventsBloc>(context).add(
+                              UpdateEvent(
+                                EventEntity(
+                                  eventColorHex: state.priorityColor,
+                                  eventDate: DateTime(
+                                      widget.args.selectedDate.year,
+                                      widget.args.selectedDate.month,
+                                      widget.args.selectedDate.day),
+                                  eventDescription:
+                                      state.eventDescriptionController.text,
+                                  eventId:
+                                      widget.args.eventToEdit?.eventId ?? '',
+                                  eventLocation:
+                                      state.eventLocationController.text,
+                                  eventName: state.eventNameController.text,
+                                  timeFrom: state.eventTime.text
+                                      .replaceRange(5, null, ""),
+                                  timeTo: state.eventTime.text
+                                      .replaceRange(0, 8, ""),
+                                ),
+                              ),
+                            );
+                            Navigator.of(context).pop();
                           }
                         },
                         child: Ink(
@@ -237,7 +263,9 @@ class _AddOrEditEventScreenState extends State<AddOrEditEventScreen> {
                               const BoxDecoration(color: AppColors.customBlue),
                           child: Center(
                             child: Text(
-                              "Add",
+                              widget.args.eventToEdit == null
+                                  ? "Add"
+                                  : "Update",
                               style: AppTextStyles.smallTitle
                                   .copyWith(color: Colors.white),
                             ),

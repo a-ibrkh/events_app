@@ -8,13 +8,13 @@ abstract class EventsEvent extends Equatable {
 
 class GetEvents extends EventsEvent {
   final DateTime date;
-  final int offset;
-  final int limit;
+  final List<EventEntity> events;
+  final bool isInitialLoad;
 
   const GetEvents(
+    this.isInitialLoad,
     this.date,
-    this.offset,
-    this.limit,
+    this.events,
   );
 
   @override

@@ -17,14 +17,14 @@ class AppTextStyles {
     color: Colors.black,
   );
   static const eventDescription = TextStyle(
-    fontSize: 10.0,
+    fontSize: 12.0,
     fontFamily: "Poppins",
     fontWeight: FontWeight.w400,
     letterSpacing: -0.17,
     color: Colors.black,
   );
   static const eventDetails = TextStyle(
-    fontSize: 10.0,
+    fontSize: 12.0,
     fontFamily: "Poppins",
     fontWeight: FontWeight.w500,
     letterSpacing: -0.17,

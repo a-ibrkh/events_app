@@ -17,11 +17,15 @@ class Error extends EventsState {
 
 class Loading extends EventsState {}
 
-
 class EventsGotten extends EventsState {
   final List<EventEntity> events;
 
-  const EventsGotten(this.events);
+  const EventsGotten(
+    this.events,
+  );
+
+  @override
+  List<Object> get props => [events];
 }
 
 class Success extends EventsState {

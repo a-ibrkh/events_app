@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/utils/app_constants.dart';
+
 import '../../../domain/entities/event_entity.dart';
 import '../../../domain/usecases/add_event.dart' as add;
 import '../../../domain/usecases/delete_event.dart' as delete;
@@ -36,19 +38,21 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
     });
   }
   Future<void> _getEvents(GetEvents event, Emitter<EventsState> emit) async {
-    emit(Loading());
+    // emit(Loading());
     final failureOrListOfEvents =
         await getEventsForOneDay.call(get_event.Params(
       date: event.date,
-      limit: event.limit,
-      offset: event.offset,
+      limit: AppConstants.paginationLimit,
+      offset: event.isInitialLoad ? 0 : event.events.length,
     ));
     failureOrListOfEvents.fold((failure) async {
       emit(const Error("Unable to get events"));
     }, (listOfEvents) async {
-      emit(
-        EventsGotten(listOfEvents),
-      );
+      if (event.isInitialLoad) {
+        emit(EventsGotten(listOfEvents));
+      } else {
+        emit(EventsGotten(event.events + listOfEvents));
+      }
     });
   }
 
@@ -58,7 +62,6 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
         await addEvent.call(add.Params(event: event.event));
     failureOrAddedEvent
         .fold((failure) => emit(const Error("Could not add event")), (isAdded) {
-      print("is added $isAdded");
       emit(isAdded
           ? const Success("Successfully added")
           : const Error("Could not add event"));

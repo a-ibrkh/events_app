@@ -50,4 +50,6 @@ class AppConstants {
     "November",
     "December",
   ];
+
+  static const paginationLimit = 5;
 }
